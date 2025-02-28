@@ -9,19 +9,48 @@
 <body class="bg-gray-100">
     
     <!-- Navbar -->
-    <nav class="bg-blue-600 p-4 text-white flex justify-between">
-        <h1 class="text-2xl font-bold">L-Guard</h1>
-        <div>
-            <a href="#" class="px-4">Home</a>
-            <a href="#" class="px-4">Dashboard</a>
-            <a href="#" class="px-4">Login</a>
+    <nav class="bg-white p-5 shadow-lg">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <!-- Logo -->
+            <img src="/frontend/L Guard Logo.webp" class="h-12 w-auto" alt="L Guard Logo">
+    
+            <!-- Hamburger Menu (Mobile Only) -->
+            <button id="menu-toggle" class="lg:hidden focus:outline-none">
+                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+    
+            <!-- Navigation Links (Hidden on Mobile, Visible on Larger Screens) -->
+            <div id="menu" class="hidden lg:flex lg:items-center lg:space-x-8">
+                <a href="#" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg transition duration-300">Home</a>
+                <a href="#" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg transition duration-300">Dashboard</a>
+                <a href="#" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold text-lg hover:bg-blue-700 transition duration-300">Login</a>
+            </div>
+        </div>
+    
+        <!-- Mobile Menu (Dropdown) -->
+        <div id="mobile-menu" class="lg:hidden hidden mt-4">
+            <a href="#" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg py-2 px-4">Home</a>
+            <a href="#" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg py-2 px-4">Dashboard</a>
+            <a href="#" class="block bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold text-lg hover:bg-blue-700 transition duration-300 mt-2">Login</a>
         </div>
     </nav>
     
+    <!-- JavaScript to Toggle Mobile Menu -->
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+    
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+    
     <!-- Hero Section -->
     <section 
-    style="background-image: url('/frontend/src/public/images/city bike1.jpg'); box-shadow: inset 0 0 0 2000px rgba(5, 5, 5, 0.5);" 
-    class="flex flex-col text-center p-10 shadow-md bg-cover bg-no-repeat sm:h-1/3 md:h-[800px] items-center justify-center border-2 border-red-400">
+    style="background-image: url('/frontend/src/public/images/city bike1.jpg'); box-shadow: inset 0 0 0 2000px rgba(5, 5, 5, 0.5); height: 200px;" 
+    class="flex flex-col text-center p-10 shadow-md bg-cover bg-no-repeat sm:h-1/3 md:h-[800px] items-center justify-center">
         <h2 class="text-white sm:text-4xl md:text-6xl font-bold mb-4">Enhancing Road Safety with Smart Helmets</h2>
         <p class="hidden md:block lg:block text-white mb-4">L-Guard provides emergency alerts, accident tracking, and rider identity verification.</p>
         <a href="#register" class="bg-blue-600 text-white px-6 py-2 rounded">Get Started</a>
@@ -29,36 +58,36 @@
     
     <!-- Features Section -->
     <section class="p-10 grid md:grid-cols-3 gap-6">
-        <!--card 1-->
-        <div class="bg-white p-6 rounded shadow-md flex max-sm:flex-col gap-8 items-center justify-center">
-            <!--icon-->
-            <img src="/frontend/src/public/images/alert-fill.png" class="h-auto w-10">
+        <!-- Card 1 -->
+        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 flex max-sm:flex-col gap-8 items-center justify-center">
+            <!-- Icon -->
+            <img src="/frontend/src/public/images/alert-fill.png" class="h-12 w-12 text-blue-600" alt="Emergency Alerts Icon">
             
-            <div id="feature 1">
-                <h3 class="text-xl font-semibold">Emergency Alerts</h3>
-                <p>Automatically notifies authorities in case of an accident.</p>
+            <div id="feature-1" class="text-center sm:text-left">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Emergency Alerts</h3>
+                <p class="text-gray-600">Automatically notifies authorities in case of an accident.</p>
             </div>
         </div>
-
-        <!--card 2-->
-        <div class="bg-white p-6 rounded shadow-md flex max-sm:flex-col gap-8 items-center justify-center">
-            <!--icon-->
-            <img src="/frontend/src/public/images/history-fill.png" class="h-auto w-10">
+    
+        <!-- Card 2 -->
+        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 flex max-sm:flex-col gap-8 items-center justify-center">
+            <!-- Icon -->
+            <img src="/frontend/src/public/images/history-fill.png" class="h-12 w-12 text-blue-600" alt="Accident History Icon">
             
-            <div>
-                <h3 class="text-xl font-semibold">Accident History</h3>
-                <p>Track accident records and analyze safety insights.</p>
+            <div class="text-center sm:text-left">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Accident History</h3>
+                <p class="text-gray-600">Track accident records and analyze safety insights.</p>
             </div>
         </div>
-
-        <!--card 3-->
-        <div class="bg-white p-6 rounded shadow-md flex max-sm:flex-col gap-8 items-center justify-center ">
-            <!--icon-->
-            <img src="/frontend/src/public/images/qr-code-line.png" class="h-auto w-10">
+    
+        <!-- Card 3 -->
+        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 flex max-sm:flex-col gap-8 items-center justify-center">
+            <!-- Icon -->
+            <img src="/frontend/src/public/images/qr-code-line.png" class="h-12 w-12 text-blue-600" alt="QR Code Verification Icon">
             
-            <div>
-                <h3 class="text-xl font-semibold">QR Code Verification</h3>
-                <p>Ensure passenger safety with instant rider details.</p>
+            <div class="text-center sm:text-left">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">QR Code Verification</h3>
+                <p class="text-gray-600">Ensure passenger safety with instant rider details.</p>
             </div>
         </div>
     </section>
