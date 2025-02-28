@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L-Guard - Smart Helmet System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    
+    <!-- Navbar -->
+    <nav class="bg-blue-600 p-4 text-white flex justify-between">
+        <h1 class="text-2xl font-bold">L-Guard</h1>
+        <div>
+            <a href="#" class="px-4">Home</a>
+            <a href="#" class="px-4">Dashboard</a>
+            <a href="#" class="px-4">Login</a>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section 
+    style="background-image: url('/frontend/src/public/images/city bike1.jpg'); box-shadow: inset 0 0 0 2000px rgba(5, 5, 5, 0.5);" 
+    class="flex flex-col text-center p-10 shadow-md bg-cover bg-no-repeat sm:h-1/3 md:h-[800px] items-center justify-center border-2 border-red-400">
+        <h2 class="text-white sm:text-4xl md:text-6xl font-bold mb-4">Enhancing Road Safety with Smart Helmets</h2>
+        <p class="hidden md:block lg:block text-white mb-4">L-Guard provides emergency alerts, accident tracking, and rider identity verification.</p>
+        <a href="#register" class="bg-blue-600 text-white px-6 py-2 rounded">Get Started</a>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="p-10 grid md:grid-cols-3 gap-6">
+        <!--card 1-->
+        <div class="bg-white p-6 rounded shadow-md flex max-sm:flex-col gap-8 items-center justify-center">
+            <!--icon-->
+            <img src="/frontend/src/public/images/alert-fill.png" class="h-auto w-10">
+            
+            <div id="feature 1">
+                <h3 class="text-xl font-semibold">Emergency Alerts</h3>
+                <p>Automatically notifies authorities in case of an accident.</p>
+            </div>
+        </div>
+
+        <!--card 2-->
+        <div class="bg-white p-6 rounded shadow-md flex max-sm:flex-col gap-8 items-center justify-center">
+            <!--icon-->
+            <img src="/frontend/src/public/images/history-fill.png" class="h-auto w-10">
+            
+            <div>
+                <h3 class="text-xl font-semibold">Accident History</h3>
+                <p>Track accident records and analyze safety insights.</p>
+            </div>
+        </div>
+
+        <!--card 3-->
+        <div class="bg-white p-6 rounded shadow-md flex max-sm:flex-col gap-8 items-center justify-center ">
+            <!--icon-->
+            <img src="/frontend/src/public/images/qr-code-line.png" class="h-auto w-10">
+            
+            <div>
+                <h3 class="text-xl font-semibold">QR Code Verification</h3>
+                <p>Ensure passenger safety with instant rider details.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center p-4 mt-6 flex flex-col justify-center items-center">
+        <!--socials-->
+        <div class="flex">
+            <img src="/frontend/src/public/images/facebook-box-fill.png">
+            <img src="/frontend/src/public/images/instagram-line.png">
+            <img src="/frontend/src/public/images/twitter-x-line.png">
+            <img src="/frontend/src/public/images/linkedin-fill.png">
+            <img src="/frontend/src/public/images/youtube-fill.png">
+
+        </div>
+
+        <div>
+            &copy; 2025 L-Guard. All Rights Reserved.
+        </div>
+    </footer>
+</body>
+</html>
