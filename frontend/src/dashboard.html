@@ -92,21 +92,47 @@
     </script>
 </head>
 
-<body class="bg-gray-50">
     <!-- Navbar -->
-    <nav class="bg-white p-5 shadow-sm">
+    <nav class="bg-white p-5 shadow-lg">
         <div class="container mx-auto px-6 flex justify-between items-center">
+            <!-- Logo -->
             <a href="home.html">
-                <img src="/frontend/L Guard Logo.webp" alt="L Guard Logo" class="h-12 w-auto">
+                <img src="/frontend/L Guard Logo.webp" alt="L Guard Logo" class="h-14 w-auto">
             </a>
-            <div class="hidden lg:flex lg:items-center lg:space-x-8">
-                <a href="home.html" class="text-gray-700 hover:text-blue-600 font-semibold text-lg transition duration-300">Home</a>
-                <a href="dashboard.html" class="text-gray-700 hover:text-blue-600 font-semibold text-lg transition duration-300">Dashboard</a>
+    
+            <!-- Hamburger Menu (Mobile Only) -->
+            <button id="menu-toggle" class="lg:hidden focus:outline-none">
+                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+    
+            <!-- Navigation Links (Hidden on Mobile, Visible on Larger Screens) -->
+            <div id="menu" class="hidden lg:flex lg:items-center lg:space-x-8">
+                <a href="#" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg transition duration-300">Home</a>
+                <a href="dashboard.html" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg transition duration-300">Dashboard</a>
                 <a href="login.html" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold text-lg hover:bg-blue-700 transition duration-300">Login</a>
             </div>
         </div>
+    
+        <!-- Mobile Menu (Dropdown) -->
+        <div id="mobile-menu" class="lg:hidden hidden mt-4">
+            <a href="home.html" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg py-2 px-4">Home</a>
+            <a href="dashboard.html" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg py-2 px-4">Dashboard</a>
+            <a href="login.html" class="block bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold text-lg hover:bg-blue-700 transition duration-300 mt-2">Login</a>
+        </div>
     </nav>
-
+    
+    <!-- JavaScript to Toggle Mobile Menu -->
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+    
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+    
     <!-- Dashboard Container -->
     <div class="container mx-auto p-6">
         <h2 class="text-3xl font-bold mb-8 text-gray-800">Welcome to Your Dashboard</h2>
