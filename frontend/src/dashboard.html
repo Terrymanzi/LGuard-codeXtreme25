@@ -7,11 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="module">
         // Import Firebase modules
-//        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-//       import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+        import { getDatabase, ref, onValue, push } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
         // Firebase configuration (Replace with your own Firebase credentials)
         const firebaseConfig = {
             apiKey: "AIzaSyD4ZX5wKS94-DktiJBfZeziNdz447Tb7kw",
@@ -22,13 +20,12 @@
             messagingSenderId: "326415784160",
             appId: "1:326415784160:web:e36bb80c0622a9df949885"
         };
+
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
         // Function to fetch and update Recent Accident Incident
-
-        // Function to fetch and display accident data (Always Shows Data)
         function fetchRecentAccident() {
             const accidentRef = ref(database, "accident");
             const locationRef = ref(database, "location");
@@ -44,12 +41,10 @@
 
                         const tbody = document.getElementById("accident-reports");
                         tbody.innerHTML = `
-                            <tr>
-                                <td class="border border-gray-300 p-2">
-                                    Lat: ${locationData.latitude}, Long: ${locationData.longitude}
-                                </td>
-                                <td class="border border-gray-300 p-2">${speedData.total.toFixed(2)} km/h</td>
-                                <td class="border border-gray-300 p-2">${new Date().toLocaleString()}</td>
+                            <tr class="hover:bg-gray-50 transition duration-200">
+                                <td class="p-4">Lat: ${locationData.latitude}, Long: ${locationData.longitude}</td>
+                                <td class="p-4">${speedData.total.toFixed(2)} km/h</td>
+                                <td class="p-4">${new Date().toLocaleString()}</td>
                             </tr>
                         `;
 
@@ -80,33 +75,33 @@
                 
                 if (historyData) {
                     Object.values(historyData).forEach(entry => {
-                        const listItem = `<li>${entry.datetime} - Lat: ${entry.latitude}, Long: ${entry.longitude}, Speed: ${entry.speed.toFixed(2)} km/h</li>`;
+                        const listItem = `<li class="p-3 hover:bg-gray-50 transition duration-200">${entry.datetime} - Lat: ${entry.latitude}, Long: ${entry.longitude}, Speed: ${entry.speed.toFixed(2)} km/h</li>`;
                         historyList.innerHTML += listItem;
                     });
                 } else {
-                    historyList.innerHTML = `<li>No accident history available.</li>`;
+                    historyList.innerHTML = `<li class="p-3">No accident history available.</li>`;
                 }
             });
         }
 
         // Fetch data on page load
         window.onload = () => {
-            fetchAccidentReports();
+            fetchRecentAccident();
             fetchAccidentHistory();
         };
     </script>
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-gray-50">
     <!-- Navbar -->
-    <nav class="bg-white p-5 shadow-lg">
+    <nav class="bg-white p-5 shadow-sm">
         <div class="container mx-auto px-6 flex justify-between items-center">
             <a href="home.html">
                 <img src="/frontend/L Guard Logo.webp" alt="L Guard Logo" class="h-12 w-auto">
             </a>
             <div class="hidden lg:flex lg:items-center lg:space-x-8">
-                <a href="home.html" class="text-blue-600 hover:text-blue-800 font-semibold text-lg transition duration-300">Home</a>
-                <a href="dashboard.html" class="text-blue-600 hover:text-blue-800 font-semibold text-lg transition duration-300">Dashboard</a>
+                <a href="home.html" class="text-gray-700 hover:text-blue-600 font-semibold text-lg transition duration-300">Home</a>
+                <a href="dashboard.html" class="text-gray-700 hover:text-blue-600 font-semibold text-lg transition duration-300">Dashboard</a>
                 <a href="login.html" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold text-lg hover:bg-blue-700 transition duration-300">Login</a>
             </div>
         </div>
@@ -114,44 +109,44 @@
 
     <!-- Dashboard Container -->
     <div class="container mx-auto p-6">
-        <h2 class="text-3xl font-semibold mb-6">Welcome to Your Dashboard</h2>
+        <h2 class="text-3xl font-bold mb-8 text-gray-800">Welcome to Your Dashboard</h2>
 
         <!-- Recent Accident Reports -->
-        <section class="bg-white p-6 rounded shadow-md mb-6">
-            <h3 class="text-xl font-bold mb-4">Recent Accident Incident</h3>
-            <table class="w-full border-collapse border border-gray-300">
+        <section class="bg-white p-6 rounded-lg shadow-sm mb-8">
+            <h3 class="text-xl font-bold mb-6 text-gray-700">Recent Accident Incident</h3>
+            <table class="w-full">
                 <thead>
-                    <tr class="bg-gray-200">
-                        <th class="border border-gray-300 p-2">Location</th>
-                        <th class="border border-gray-300 p-2">Speed (km/h)</th>
-                        <th class="border border-gray-300 p-2">Date & Time</th>
+                    <tr class="bg-gray-100">
+                        <th class="p-4 text-left text-gray-600">Location</th>
+                        <th class="p-4 text-left text-gray-600">Speed (km/h)</th>
+                        <th class="p-4 text-left text-gray-600">Date & Time</th>
                     </tr>
                 </thead>
-                <tbody id="accident-reports" class="border-4 border-red-600">
+                <tbody id="accident-reports" class="divide-y divide-gray-200">
                     <!-- Dynamic Data will be inserted here -->
                 </tbody>
             </table>
         </section>
 
         <!-- Accident History -->
-        <section class="bg-white p-6 rounded shadow-md mb-6">
-            <h3 class="text-xl font-bold mb-4">Accident History</h3>
-            <ul id="accident-history" class="list-disc pl-6">
+        <section class="bg-white p-6 rounded-lg shadow-sm mb-8">
+            <h3 class="text-xl font-bold mb-6 text-gray-700">Accident History</h3>
+            <ul id="accident-history" class="divide-y divide-gray-200">
                 <!-- Dynamic Data will be inserted here -->
             </ul>
         </section>
         
         <!-- Data Sharing Option -->
-        <section class="bg-white p-6 rounded shadow-md mb-6">
-            <h3 class="text-xl font-bold mb-4">Data Sharing</h3>
-            <p>Share your accident data with authorities or insurance companies.</p>
-            <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Share Data</button>
+        <section class="bg-white p-6 rounded-lg shadow-sm mb-8">
+            <h3 class="text-xl font-bold mb-6 text-gray-700">Data Sharing</h3>
+            <p class="text-gray-600 mb-4">Share your accident data with authorities or insurance companies.</p>
+            <button class="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition duration-300">Share Data</button>
         </section>
 
         <!-- Placeholder for Statistical Graphs -->
-        <section class="bg-white p-6 rounded shadow-md">
-            <h3 class="text-xl font-bold mb-4">Accident Statistics</h3>
-            <p>Graphical representation of accident history coming soon...</p>
+        <section class="bg-white p-6 rounded-lg shadow-sm">
+            <h3 class="text-xl font-bold mb-6 text-gray-700">Accident Statistics</h3>
+            <p class="text-gray-600">Graphical representation of accident history coming soon...</p>
         </section>
     </div>
 </body>
