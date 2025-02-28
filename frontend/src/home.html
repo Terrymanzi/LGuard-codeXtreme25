@@ -12,7 +12,9 @@
     <nav class="bg-white p-5 shadow-lg">
         <div class="container mx-auto px-6 flex justify-between items-center">
             <!-- Logo -->
-            <img src="/frontend/L Guard Logo.webp" class="h-12 w-auto" alt="L Guard Logo">
+            <a href="home.html">
+                <img src="/frontend/L Guard Logo.webp" alt="L Guard Logo" class="h-12 w-auto">
+            </a>
     
             <!-- Hamburger Menu (Mobile Only) -->
             <button id="menu-toggle" class="lg:hidden focus:outline-none">
@@ -25,15 +27,15 @@
             <div id="menu" class="hidden lg:flex lg:items-center lg:space-x-8">
                 <a href="#" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg transition duration-300">Home</a>
                 <a href="dashboard.html" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg transition duration-300">Dashboard</a>
-                <a href="#" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold text-lg hover:bg-blue-700 transition duration-300">Login</a>
+                <a href="login.html" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold text-lg hover:bg-blue-700 transition duration-300">Login</a>
             </div>
         </div>
     
         <!-- Mobile Menu (Dropdown) -->
         <div id="mobile-menu" class="lg:hidden hidden mt-4">
-            <a href="#" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg py-2 px-4">Home</a>
-            <a href="#" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg py-2 px-4">Dashboard</a>
-            <a href="#" class="block bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold text-lg hover:bg-blue-700 transition duration-300 mt-2">Login</a>
+            <a href="home.html" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg py-2 px-4">Home</a>
+            <a href="dashboard.html" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg py-2 px-4">Dashboard</a>
+            <a href="login.html" class="block bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold text-lg hover:bg-blue-700 transition duration-300 mt-2">Login</a>
         </div>
     </nav>
     
@@ -49,7 +51,7 @@
     
     <!-- Hero Section -->
     <section 
-    style="background-image: url('/frontend/src/public/images/city bike1.jpg'); box-shadow: inset 0 0 0 2000px rgba(5, 5, 5, 0.5); height: 200px;" 
+    style="background-image: url('/frontend/src/public/images/city bike1.jpg'); box-shadow: inset 0 0 0 2000px rgba(5, 5, 5, 0.5);" 
     class="flex flex-col text-center p-10 shadow-md bg-cover bg-no-repeat sm:h-1/3 md:h-[800px] items-center justify-center">
         <h2 class="text-white sm:text-4xl md:text-6xl font-bold mb-4">Enhancing Road Safety with Smart Helmets</h2>
         <p class="hidden md:block lg:block text-white mb-4">L-Guard provides emergency alerts, accident tracking, and rider identity verification.</p>
