@@ -27,7 +27,7 @@ class="flex flex-col items-center justify-center h-screen bg-cover bg-no-repeat 
         <!--login form/card-->
         <div class="w-full max-w-md mx-auto p-8 bg-white rounded-lg shadow-lg">
             <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Sign up</h2>
-            <form action="#" method="POST" class="space-y-6">
+            <form id="signup-form" action="#" method="POST" class="space-y-6">
                 <!-- Full Name Input (Full Width) -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
@@ -71,6 +71,7 @@ class="flex flex-col items-center justify-center h-screen bg-cover bg-no-repeat 
                         <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
                         <input 
                             type="password" 
+                            id="password" 
                             class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" 
                             placeholder="Password" 
                             required
@@ -82,11 +83,17 @@ class="flex flex-col items-center justify-center h-screen bg-cover bg-no-repeat 
                         <label class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
                         <input 
                             type="password" 
+                            id="confirm-password" 
                             class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" 
                             placeholder="Confirm Password" 
                             required
                         >
                     </div>
+                </div>
+        
+                <!-- Error Message (Hidden by Default) -->
+                <div id="password-error" class="text-red-600 text-sm hidden">
+                    Passwords do not match. Please try again.
                 </div>
         
                 <!-- Sign Up Button -->
@@ -104,6 +111,34 @@ class="flex flex-col items-center justify-center h-screen bg-cover bg-no-repeat 
                 <a href="login.html" class="text-blue-600 hover:text-blue-700 font-semibold transition duration-300">Login</a>
             </p>
         </div>
+        
+        <!-- JavaScript for Password Validation -->
+        <script>
+            const form = document.getElementById('signup-form');
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('confirm-password');
+            const passwordError = document.getElementById('password-error');
+        
+            form.addEventListener('submit', (e) => {
+                // Check if passwords match
+                if (passwordInput.value !== confirmPasswordInput.value) {
+                    e.preventDefault(); // Prevent form submission
+                    passwordError.classList.remove('hidden'); // Show error message
+                    confirmPasswordInput.focus(); // Focus on the confirm password field
+                } else {
+                    passwordError.classList.add('hidden'); // Hide error message if passwords match
+                }
+            });
+        
+            // Optional: Validate passwords in real-time as the user types
+            confirmPasswordInput.addEventListener('input', () => {
+                if (passwordInput.value !== confirmPasswordInput.value) {
+                    passwordError.classList.remove('hidden');
+                } else {
+                    passwordError.classList.add('hidden');
+                }
+            });
+        </script>
     </div>
 </body>
 </html>
