@@ -5,58 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - L-Guard</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module">
+        // Import Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        // Firebase configuration (Replace with your own Firebase credentials)
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            databaseURL: "https://l-guard-default-rtdb.firebaseio.com/",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // Function to fetch and update accident reports
+        function fetchAccidentReports() {
+            const accidentRef = ref(database, "accidents/recent"); // Adjust the path based on your Firebase structure
+
+            onValue(accidentRef, (snapshot) => {
+                const data = snapshot.val();
+                const tbody = document.getElementById("accident-reports");
+                tbody.innerHTML = ""; // Clear previous data
+                
+                if (data) {
+                    Object.values(data).forEach(accident => {
+                        const row = `
+                            <tr>
+                                <td class="border border-gray-300 p-2">${accident.location}</td>
+                                <td class="border border-gray-300 p-2">${accident.speed} km/h</td>
+                                <td class="border border-gray-300 p-2">${accident.datetime}</td>
+                            </tr>
+                        `;
+                        tbody.innerHTML += row;
+                    });
+                }
+            });
+        }
+
+        // Function to fetch and update accident history
+        function fetchAccidentHistory() {
+            const historyRef = ref(database, "accidents/history");
+
+            onValue(historyRef, (snapshot) => {
+                const data = snapshot.val();
+                const historyList = document.getElementById("accident-history");
+                historyList.innerHTML = ""; // Clear previous data
+                
+                if (data) {
+                    Object.values(data).forEach(entry => {
+                        const listItem = `<li>${entry.datetime} - ${entry.location}, Speed: ${entry.speed} km/h</li>`;
+                        historyList.innerHTML += listItem;
+                    });
+                }
+            });
+        }
+
+        // Fetch data on page load
+        window.onload = () => {
+            fetchAccidentReports();
+            fetchAccidentHistory();
+        };
+    </script>
 </head>
 <body class="bg-gray-100">
-    
-    <!--nav option 1
-    
-    navbar
-    <nav class="bg-blue-600 p-4 text-white flex justify-between">
-        <h1 class="text-2xl font-bold">L-Guard Dashboard</h1>
-        <div>
-            <a href="home.html" class="px-4">Home</a>
-            <a href="dashboard.html" class="px-4">Dashboard</a>
-            <a href="#" class="px-4">Logout</a>
+    <!-- Navbar -->
+    <nav class="bg-white p-5 shadow-lg">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="home.html">
+                <img src="/frontend/L Guard Logo.webp" alt="L Guard Logo" class="h-12 w-auto">
+            </a>
+            <div class="hidden lg:flex lg:items-center lg:space-x-8">
+                <a href="home.html" class="text-blue-600 hover:text-blue-800 font-semibold text-lg transition duration-300">Home</a>
+                <a href="dashboard.html" class="text-blue-600 hover:text-blue-800 font-semibold text-lg transition duration-300">Dashboard</a>
+                <a href="login.html" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold text-lg hover:bg-blue-700 transition duration-300">Login</a>
+            </div>
         </div>
     </nav>
 
-    -->
-
-        <!-- Navbar -->
-        <nav class="bg-white p-5 shadow-lg">
-            <div class="container mx-auto px-6 flex justify-between items-center">
-                <!-- Logo -->
-                <a href="home.html">
-                    <img src="/frontend/L Guard Logo.webp" alt="L Guard Logo" class="h-12 w-auto">
-                </a>
-        
-                <!-- Hamburger Menu (Mobile Only) -->
-                <button id="menu-toggle" class="lg:hidden focus:outline-none">
-                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                    </svg>
-                </button>
-        
-                <!-- Navigation Links (Hidden on Mobile, Visible on Larger Screens) -->
-                <div id="menu" class="hidden lg:flex lg:items-center lg:space-x-8">
-                    <a href="home.html" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg transition duration-300">Home</a>
-                    <a href="dashboard.html" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg transition duration-300">Dashboard</a>
-                    <a href="login.html" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold text-lg hover:bg-blue-700 transition duration-300">Login</a>
-                </div>
-            </div>
-        
-            <!-- Mobile Menu (Dropdown) -->
-            <div id="mobile-menu" class="lg:hidden hidden mt-4">
-                <a href="home.html" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg py-2 px-4">Home</a>
-                <a href="dashboard.html" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg py-2 px-4">Dashboard</a>
-                <a href="login.html" class="block bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold text-lg hover:bg-blue-700 transition duration-300 mt-2">Login</a>
-            </div>
-        </nav>
-    
     <!-- Dashboard Container -->
     <div class="container mx-auto p-6">
         <h2 class="text-3xl font-semibold mb-6">Welcome to Your Dashboard</h2>
-        
+
         <!-- Recent Accident Reports -->
         <section class="bg-white p-6 rounded shadow-md mb-6">
             <h3 class="text-xl font-bold mb-4">Recent Accident Incident</h3>
@@ -68,25 +104,17 @@
                         <th class="border border-gray-300 p-2">Date & Time</th>
                     </tr>
                 </thead>
-
-                <!--sensor data to be fetched-->
-                <tbody class="border-4 border-red-600">
-                    <tr>
-                        <td class="border border-gray-300 p-2">Kigali, Rwanda</td>
-                        <td class="border border-gray-300 p-2">65</td>
-                        <td class="border border-gray-300 p-2">2025-02-28 14:30</td>
-                    </tr>
+                <tbody id="accident-reports" class="border-4 border-red-600">
+                    <!-- Dynamic Data will be inserted here -->
                 </tbody>
             </table>
         </section>
-        
+
         <!-- Accident History -->
         <section class="bg-white p-6 rounded shadow-md mb-6">
             <h3 class="text-xl font-bold mb-4">Accident History</h3>
-            <ul class="list-disc pl-6">
-                <li>2025-02-20 - Kigali, Speed: 50km/h</li>
-                <li>2025-01-15 - Musanze, Speed: 60km/h</li>
-                <li>2024-12-10 - Huye, Speed: 55km/h</li>
+            <ul id="accident-history" class="list-disc pl-6">
+                <!-- Dynamic Data will be inserted here -->
             </ul>
         </section>
         
@@ -96,8 +124,8 @@
             <p>Share your accident data with authorities or insurance companies.</p>
             <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Share Data</button>
         </section>
-        
-        <!-- Placeholder for Statistical Graphs (Optional) -->
+
+        <!-- Placeholder for Statistical Graphs -->
         <section class="bg-white p-6 rounded shadow-md">
             <h3 class="text-xl font-bold mb-4">Accident Statistics</h3>
             <p>Graphical representation of accident history coming soon...</p>
