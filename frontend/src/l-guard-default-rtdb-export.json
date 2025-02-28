@@ -1,0 +1,15 @@
+{
+  "accident": {
+    "detected": false,
+    "distance": -1,
+    "status": "Safe",
+    "vibration": 10
+  },
+  "location": {
+    "latitude": 40.71742,
+    "longitude": -74.00614
+  },
+  "speed": {
+    "total": 138.45477
+  }
+}
