@@ -15,9 +15,7 @@ class="flex flex-col items-center justify-center h-screen bg-cover bg-no-repeat 
         <a href="home.html" class="text-white hover:text-[#2563EB] text-2xl font-bold mb-4">Back</a>
         <img src="">
     </div>
-
-    <!--sign-up/register card card-->
-    <div class="flex flex-col items-center bg-white p-6 rounded shadow-md w-[500px]">
+    <div class="flex flex-col items-center bg-white p-8 rounded shadow-md w-[500px]">
 
         <!--logo-->
         <div class="pb-4">
@@ -27,26 +25,120 @@ class="flex flex-col items-center justify-center h-screen bg-cover bg-no-repeat 
         </div> 
 
         <!--login form/card-->
-        <div class="w-full">
-            <h2 class="text-2xl font-bold mb-4">Sign Up</h2>
-            <form action="#" method="POST">
-                <label class="block mb-2">Full Name:</label>
-                <input type="text" class="w-full p-2 border rounded mb-4" required>
-                
-                <label class="block mb-2">Email:</label>
-                <input type="email" class="w-full p-2 border rounded mb-4" required>
-                
-                <label class="block mb-2">Phone Number:</label>
-                <input type="tel" class="w-full p-2 border rounded mb-4" required>
-                
-                <label class="block mb-2">Password:</label>
-                <input type="password" class="w-full p-2 border rounded mb-4" required>
-                
-                <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded">Sign Up</button>
+        <div class="w-full max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Sign up</h2>
+            <form id="signup-form" action="#" method="POST" class="space-y-4">
+                <!-- Full Name Input (Full Width) -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                    <input 
+                        type="text" 
+                        class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" 
+                        placeholder="Full Name" 
+                        required
+                    >
+                </div>
+        
+                <!-- Two-Column Layout for Phone Number and Email -->
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- Phone Number Input -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                        <input 
+                            type="tel" 
+                            class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" 
+                            placeholder="Phone Number" 
+                            required
+                        >
+                    </div>
+        
+                    <!-- Email Input -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input 
+                            type="email" 
+                            class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" 
+                            placeholder="Email" 
+                            required
+                        >
+                    </div>
+                </div>
+        
+                <!-- Two-Column Layout for Password and Confirm Password -->
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- Password Input -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" 
+                            placeholder="Password" 
+                            required
+                        >
+                    </div>
+        
+                    <!-- Confirm Password Input -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+                        <input 
+                            type="password" 
+                            id="confirm-password" 
+                            class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" 
+                            placeholder="Confirm Password" 
+                            required
+                        >
+                    </div>
+                </div>
+        
+                <!-- Error Message (Hidden by Default) -->
+                <div id="password-error" class="text-red-600 text-sm mt-2 hidden">
+                    Passwords do not match. Please try again.
+                </div>
+        
+                <!-- Sign Up Button -->
+                <button 
+                    type="submit" 
+                    class="w-full bg-blue-600 text-white p-2 rounded-lg font-semibold hover:bg-blue-700 transition duration-300"
+                >
+                    Sign Up
+                </button>
             </form>
-            <p class="mt-4 text-center">Already have an account? <a href="login.html" class="text-blue-600">Login</a></p>
+        
+            <!-- Login Link -->
+            <p class="mt-4 text-center text-gray-600 text-sm">
+                Already have an account? 
+                <a href="login.html" class="text-blue-600 hover:text-blue-700 font-semibold transition duration-300">Login</a>
+            </p>
         </div>
+        
+        <!-- JavaScript for Password Validation -->
+        <script>
+            const form = document.getElementById('signup-form');
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('confirm-password');
+            const passwordError = document.getElementById('password-error');
+        
+            form.addEventListener('submit', (e) => {
+                // Check if passwords match
+                if (passwordInput.value !== confirmPasswordInput.value) {
+                    e.preventDefault(); // Prevent form submission
+                    passwordError.classList.remove('hidden'); // Show error message
+                    confirmPasswordInput.focus(); // Focus on the confirm password field
+                } else {
+                    passwordError.classList.add('hidden'); // Hide error message if passwords match
+                }
+            });
+        
+            // Optional: Validate passwords in real-time as the user types
+            confirmPasswordInput.addEventListener('input', () => {
+                if (passwordInput.value !== confirmPasswordInput.value) {
+                    passwordError.classList.remove('hidden');
+                } else {
+                    passwordError.classList.add('hidden');
+                }
+            });
+        </script>
     </div>
-
 </body>
 </html>
