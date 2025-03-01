@@ -1,5 +1,5 @@
 [build]
-  publish = "src"  # Keep serving from 'src'
+  publish = "src/public"  # Keep serving from 'src'
   command = "npx tailwindcss -i ./src/input.css -o ./src/output.css --minify"
 
 [build.environment]
