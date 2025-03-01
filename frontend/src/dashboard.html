@@ -43,26 +43,31 @@
     <div class="container mx-auto p-6">
         <h2 class="text-3xl font-semibold mb-6">Welcome to Your Dashboard</h2>
 
-        <!-- Recent Accident Reports -->
         <section class="bg-white p-6 rounded shadow-md mb-6">
-            <h3 class="text-xl font-bold mb-4">Recent Accident Incident</h3>
-            <table class="w-full border-collapse border border-gray-300">
-                <thead>
-                    <tr class="bg-gray-100">
-                        <th class="p-4 text-left text-gray-600">Location</th>
-                        <th class="p-4 text-left text-gray-600">Speed (km/h)</th>
-                        <th class="p-4 text-left text-gray-600">Date & Time</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td id="location-data" class="border border-gray-300 p-2">Loading...</td>
-                        <td id="speed-data" class="border border-gray-300 p-2">Loading...</td>
-                        <td id="datetime-data" class="border border-gray-300 p-2">Loading...</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
+            <h2 class="text-2xl font-bold mb-4">Dashboard</h2>
+
+            <!-- Location Metrics -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            </div>
+            
+            <!-- Speed and Time Metrics -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-gray-700">Longitude & Latitude</h3>
+                    <p id="location-data" class="text-2xl font-bold">Loading..</p>
+                    <!-- <p class="text-sm text-gray-500">5.25% since last month</p> -->
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-gray-700">Speed (km/h)</h3>
+                    <p id="speed-data" class="text-2xl font-bold">Loading...</p>
+                    <!-- <p class="text-sm text-gray-500">7.85% since last month</p> -->
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-gray-700">Time</h3>
+                    <p id="datetime-data" class="text-2xl font-bold">Loading...</p>
+                    <!-- <p class="text-sm text-gray-500">3.72% since last month</p> -->
+                </div>
+            </div>
 
         <!-- Accident History -->
         <section class="bg-white p-6 rounded shadow-md mb-6">
