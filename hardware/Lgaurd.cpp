@@ -85,7 +85,22 @@ float getDistance() {
     return duration * 0.034 / 2;  // Convert to cm
   }
 
-void loop() {
-  Serial.println("Base Project Setup Running...");
-  delay(1000);
-}
+  void loop() {
+    sensors_event_t event;
+    accel.getEvent(&event);
+    float accelX = event.acceleration.x;
+    float accelY = event.acceleration.y;
+    float accelZ = event.acceleration.z;
+    
+    float distance = getDistance();
+    int vibrationValue = analogRead(VIBRATION_SENSOR);
+  
+    Serial.print("Acceleration: X="); Serial.print(accelX);
+    Serial.print(" Y="); Serial.print(accelY);
+    Serial.print(" Z="); Serial.println(accelZ);
+    
+    Serial.print("Distance: "); Serial.print(distance); Serial.println(" cm");
+    Serial.print("Vibration: "); Serial.println(vibrationValue);
+    
+    delay(1000);
+  }
