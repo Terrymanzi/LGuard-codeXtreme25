@@ -1,7 +1,18 @@
 [build]
-  publish = "src"  # Directory where Netlify will look for files to deploy
-  command = "npx tailwindcss -i ./src/input.css -o ./src/output.css --minify"  # Tailwind build command
+  publish = "src"  # Keep serving from 'src'
+  command = "npx tailwindcss -i ./src/input.css -o ./src/output.css --minify"
 
 [build.environment]
-  NODE_VERSION = "18"  # Ensure Node.js version compatibility
+  NODE_VERSION = "18"
 
+# Redirect requests for images correctly
+[[redirects]]
+  from = "/images/*"
+  to = "/public/images/:splat"
+  status = 200
+
+# Ensure images are served correctly
+[[headers]]
+  for = "/public/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
