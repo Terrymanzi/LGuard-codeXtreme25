@@ -73,6 +73,18 @@ void setup() {
   pinMode(VIBRATION_SENSOR, INPUT);
 }
 
+// **Calculate Distance Using Ultrasonic Sensor**
+float getDistance() {
+    digitalWrite(TRIG_PIN, LOW);
+    delayMicroseconds(2);
+    digitalWrite(TRIG_PIN, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(TRIG_PIN, LOW);
+  
+    long duration = pulseIn(ECHO_PIN, HIGH, 30000);
+    return duration * 0.034 / 2;  // Convert to cm
+  }
+
 void loop() {
   Serial.println("Base Project Setup Running...");
   delay(1000);
