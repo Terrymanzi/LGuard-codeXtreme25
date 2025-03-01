@@ -5,121 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - L-Guard</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script type="module">
-        // Import Firebase modules
-//        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-//       import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
-        // Firebase configuration (Replace with your own Firebase credentials)
-        const firebaseConfig = {
-            apiKey: "AIzaSyD4ZX5wKS94-DktiJBfZeziNdz447Tb7kw",
-            authDomain: "l-guard.firebaseapp.com",
-            databaseURL: "https://l-guard-default-rtdb.europe-west1.firebasedatabase.app",
-            projectId: "l-guard",
-            storageBucket: "l-guard.firebasestorage.app",
-            messagingSenderId: "326415784160",
-            appId: "1:326415784160:web:e36bb80c0622a9df949885"
-        };
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-
-        // Function to fetch and update Recent Accident Incident
-
-        // Function to fetch and display accident data (Always Shows Data)
-        function fetchRecentAccident() {
-            const accidentRef = ref(database, "accident");
-            const locationRef = ref(database, "location");
-            const speedRef = ref(database, "speed");
-            const historyRef = ref(database, "accident/history"); // For storing logs
-
-            onValue(accidentRef, (snapshot) => {
-                const accidentData = snapshot.val();
-                onValue(locationRef, (locationSnapshot) => {
-                    const locationData = locationSnapshot.val();
-                    onValue(speedRef, (speedSnapshot) => {
-                        const speedData = speedSnapshot.val();
-
-                        const tbody = document.getElementById("accident-reports");
-                        tbody.innerHTML = `
-                            <tr>
-                                <td class="border border-gray-300 p-2">
-                                    Lat: ${locationData.latitude}, Long: ${locationData.longitude}
-                                </td>
-                                <td class="border border-gray-300 p-2">${speedData.total.toFixed(2)} km/h</td>
-                                <td class="border border-gray-300 p-2">${new Date().toLocaleString()}</td>
-                            </tr>
-                        `;
-
-                        // If an accident is detected, add it to history
-                        if (accidentData.detected) {
-                            const newRecord = {
-                                latitude: locationData.latitude,
-                                longitude: locationData.longitude,
-                                speed: speedData.total,
-                                datetime: new Date().toLocaleString()
-                            };
-
-                            push(historyRef, newRecord); // Store in Firebase history
-                        }
-                    });
-                });
-            });
-        }
-
-        // Function to fetch and display accident history logs
-        function fetchAccidentHistory() {
-            const historyRef = ref(database, "accident/history");
-
-            onValue(historyRef, (snapshot) => {
-                const historyData = snapshot.val();
-                const historyList = document.getElementById("accident-history");
-                historyList.innerHTML = ""; // Clear previous data
-                
-                if (historyData) {
-                    Object.values(historyData).forEach(entry => {
-                        const listItem = `<li>${entry.datetime} - Lat: ${entry.latitude}, Long: ${entry.longitude}, Speed: ${entry.speed.toFixed(2)} km/h</li>`;
-                        historyList.innerHTML += listItem;
-                    });
-                } else {
-                    historyList.innerHTML = `<li>No accident history available.</li>`;
-                }
-            });
-        }
-
-        // Fetch data on page load
-        window.onload = () => {
-            fetchAccidentReports();
-            fetchAccidentHistory();
-        };
-    </script>
 </head>
-
 <body class="bg-gray-100">
-    <!-- Navbar -->
-    <nav class="bg-white p-5 shadow-lg">
-        <div class="container mx-auto px-6 flex justify-between items-center">
-            <a href="home.html">
-                <img src="/frontend/L Guard Logo.webp" alt="L Guard Logo" class="h-12 w-auto">
-            </a>
-            <div class="hidden lg:flex lg:items-center lg:space-x-8">
-                <a href="home.html" class="text-blue-600 hover:text-blue-800 font-semibold text-lg transition duration-300">Home</a>
-                <a href="dashboard.html" class="text-blue-600 hover:text-blue-800 font-semibold text-lg transition duration-300">Dashboard</a>
-                <a href="login.html" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold text-lg hover:bg-blue-700 transition duration-300">Login</a>
-            </div>
+    
+    <!--nav option 1
+    
+    navbar
+    <nav class="bg-blue-600 p-4 text-white flex justify-between">
+        <h1 class="text-2xl font-bold">L-Guard Dashboard</h1>
+        <div>
+            <a href="home.html" class="px-4">Home</a>
+            <a href="dashboard.html" class="px-4">Dashboard</a>
+            <a href="#" class="px-4">Logout</a>
         </div>
     </nav>
 
+    -->
+
+        <!-- Navbar -->
+        <nav class="bg-white p-5 shadow-lg">
+            <div class="container mx-auto px-6 flex justify-between items-center">
+                <!-- Logo -->
+                <a href="home.html">
+                    <img src="/frontend/L Guard Logo.webp" alt="L Guard Logo" class="h-12 w-auto">
+                </a>
+        
+                <!-- Hamburger Menu (Mobile Only) -->
+                <button id="menu-toggle" class="lg:hidden focus:outline-none">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+        
+                <!-- Navigation Links (Hidden on Mobile, Visible on Larger Screens) -->
+                <div id="menu" class="hidden lg:flex lg:items-center lg:space-x-8">
+                    <a href="home.html" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg transition duration-300">Home</a>
+                    <a href="dashboard.html" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg transition duration-300">Dashboard</a>
+                    <a href="login.html" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold text-lg hover:bg-blue-700 transition duration-300">Login</a>
+                </div>
+            </div>
+        
+            <!-- Mobile Menu (Dropdown) -->
+            <div id="mobile-menu" class="lg:hidden hidden mt-4">
+                <a href="home.html" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg py-2 px-4">Home</a>
+                <a href="dashboard.html" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg py-2 px-4">Dashboard</a>
+                <a href="login.html" class="block bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold text-lg hover:bg-blue-700 transition duration-300 mt-2">Login</a>
+            </div>
+        </nav>
+    
     <!-- Dashboard Container -->
     <div class="container mx-auto p-6">
         <h2 class="text-3xl font-semibold mb-6">Welcome to Your Dashboard</h2>
-
+        
         <!-- Recent Accident Reports -->
         <section class="bg-white p-6 rounded shadow-md mb-6">
             <h3 class="text-xl font-bold mb-4">Recent Accident Incident</h3>
             <table class="w-full border-collapse border border-gray-300">
+                
+                <!--table heading-->
                 <thead>
                     <tr class="bg-gray-200">
                         <th class="border border-gray-300 p-2">Location</th>
@@ -127,17 +70,25 @@
                         <th class="border border-gray-300 p-2">Date & Time</th>
                     </tr>
                 </thead>
-                <tbody id="accident-reports" class="border-4 border-red-600">
-                    <!-- Dynamic Data will be inserted here -->
+
+                <!--sensor data to fetched from firebase and inserted into these <td> element-->
+                <tbody>
+                    <tr>
+                        <td id="location-data" class="border border-gray-300 p-2">Loading...</td>
+                        <td id="speed-data" class="border border-gray-300 p-2">Loading...</td>
+                        <td id="datetime-data" class="border border-gray-300 p-2">Loading...</td>
+                    </tr>
                 </tbody>
             </table>
         </section>
-
-        <!-- Accident History -->
+        
+        <!-- Accident History that keeps logs of  -->
         <section class="bg-white p-6 rounded shadow-md mb-6">
             <h3 class="text-xl font-bold mb-4">Accident History</h3>
-            <ul id="accident-history" class="list-disc pl-6">
-                <!-- Dynamic Data will be inserted here -->
+            <ul class="list-disc pl-6">
+                <li>2025-02-20 - Kigali, Speed: 50km/h</li>
+                <li>2025-01-15 - Musanze, Speed: 60km/h</li>
+                <li>2024-12-10 - Huye, Speed: 55km/h</li>
             </ul>
         </section>
         
@@ -147,12 +98,15 @@
             <p>Share your accident data with authorities or insurance companies.</p>
             <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Share Data</button>
         </section>
-
-        <!-- Placeholder for Statistical Graphs -->
+        
+        <!-- Placeholder for Statistical Graphs (Optional) -->
         <section class="bg-white p-6 rounded shadow-md">
             <h3 class="text-xl font-bold mb-4">Accident Statistics</h3>
-            <p>Graphical representation of accident history coming soon...</p>
+            <p>Graphical representation of accident history <span class="font-bold text-xl">Coming Soon...</span></p>
         </section>
     </div>
+    
+    <!--links to fetch script-->
+    <script src="firebase-fetch.js"></script>
 </body>
 </html>
