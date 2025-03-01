@@ -73,6 +73,8 @@ void setup() {
   pinMode(VIBRATION_SENSOR, INPUT);
 }
 
+const int VIBRATION_THRESHOLD = 500;
+
 // **Calculate Distance Using Ultrasonic Sensor**
 float getDistance() {
     digitalWrite(TRIG_PIN, LOW);
@@ -91,16 +93,28 @@ float getDistance() {
     float accelX = event.acceleration.x;
     float accelY = event.acceleration.y;
     float accelZ = event.acceleration.z;
-    
+  
     float distance = getDistance();
     int vibrationValue = analogRead(VIBRATION_SENSOR);
   
-    Serial.print("Acceleration: X="); Serial.print(accelX);
-    Serial.print(" Y="); Serial.print(accelY);
-    Serial.print(" Z="); Serial.println(accelZ);
-    
-    Serial.print("Distance: "); Serial.print(distance); Serial.println(" cm");
-    Serial.print("Vibration: "); Serial.println(vibrationValue);
-    
+    bool accidentDetected = (distance < 5 && vibrationValue > VIBRATION_THRESHOLD);
+  
+    if (accidentDetected) {
+      digitalWrite(BUZZER_PIN, HIGH);
+      Serial.println("🚨 ACCIDENT DETECTED!");
+      Firebase.RTDB.setBool(&fbdo, "accident/detected", true);
+    } else {
+      digitalWrite(BUZZER_PIN, LOW);
+      Firebase.RTDB.setBool(&fbdo, "accident/detected", false);
+    }
+  
+    Firebase.RTDB.setFloat(&fbdo, "accident/distance", distance);
+    Firebase.RTDB.setInt(&fbdo, "accident/vibration", vibrationValue);
+  
+    Serial.print("Accident Status: "); Serial.println(accidentDetected ? "Accident" : "Safe");
     delay(1000);
   }
+
+  
+
+
