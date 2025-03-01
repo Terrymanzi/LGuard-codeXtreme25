@@ -5,7 +5,3 @@
 [build.environment]
   NODE_VERSION = "18"  # Ensure Node.js version compatibility
 
-[[redirects]]
-  from = "/*"
-  to = "/home.html"
-  status = 200
