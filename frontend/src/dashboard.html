@@ -7,71 +7,53 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100">
-    
-    <!--nav option 1
-    
-    navbar
-    <nav class="bg-blue-600 p-4 text-white flex justify-between">
-        <h1 class="text-2xl font-bold">L-Guard Dashboard</h1>
-        <div>
-            <a href="home.html" class="px-4">Home</a>
-            <a href="dashboard.html" class="px-4">Dashboard</a>
-            <a href="#" class="px-4">Logout</a>
+
+    <!-- Navbar -->
+    <nav class="bg-white p-5 shadow-lg">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="home.html">
+                <img src="/frontend/L Guard Logo.webp" alt="L Guard Logo" class="h-12 w-auto">
+            </a>
+
+            <!-- Hamburger Menu (Mobile Only) -->
+            <button id="menu-toggle" class="lg:hidden focus:outline-none">
+                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+
+            <!-- Navigation Links (Hidden on Mobile, Visible on Larger Screens) -->
+            <div id="menu" class="hidden lg:flex lg:items-center lg:space-x-8">
+                <a href="home.html" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg transition duration-300">Home</a>
+                <a href="dashboard.html" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg transition duration-300">Dashboard</a>
+                <a href="login.html" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold text-lg hover:bg-blue-700 transition duration-300">Login</a>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Dropdown) -->
+        <div id="mobile-menu" class="lg:hidden hidden mt-4">
+            <a href="home.html" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg py-2 px-4">Home</a>
+            <a href="dashboard.html" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg py-2 px-4">Dashboard</a>
+            <a href="login.html" class="block bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold text-lg hover:bg-blue-700 transition duration-300 mt-2">Login</a>
         </div>
     </nav>
 
-    -->
-
-        <!-- Navbar -->
-        <nav class="bg-white p-5 shadow-lg">
-            <div class="container mx-auto px-6 flex justify-between items-center">
-                <!-- Logo -->
-                <a href="home.html">
-                    <img src="/frontend/L Guard Logo.webp" alt="L Guard Logo" class="h-12 w-auto">
-                </a>
-        
-                <!-- Hamburger Menu (Mobile Only) -->
-                <button id="menu-toggle" class="lg:hidden focus:outline-none">
-                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                    </svg>
-                </button>
-        
-                <!-- Navigation Links (Hidden on Mobile, Visible on Larger Screens) -->
-                <div id="menu" class="hidden lg:flex lg:items-center lg:space-x-8">
-                    <a href="home.html" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg transition duration-300">Home</a>
-                    <a href="dashboard.html" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg transition duration-300">Dashboard</a>
-                    <a href="login.html" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold text-lg hover:bg-blue-700 transition duration-300">Login</a>
-                </div>
-            </div>
-        
-            <!-- Mobile Menu (Dropdown) -->
-            <div id="mobile-menu" class="lg:hidden hidden mt-4">
-                <a href="home.html" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg py-2 px-4">Home</a>
-                <a href="dashboard.html" class="block text-blue-600 hover:text-blue-800 font-semibold text-lg py-2 px-4">Dashboard</a>
-                <a href="login.html" class="block bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold text-lg hover:bg-blue-700 transition duration-300 mt-2">Login</a>
-            </div>
-        </nav>
-    
     <!-- Dashboard Container -->
     <div class="container mx-auto p-6">
         <h2 class="text-3xl font-semibold mb-6">Welcome to Your Dashboard</h2>
-        
+
         <!-- Recent Accident Reports -->
         <section class="bg-white p-6 rounded shadow-md mb-6">
             <h3 class="text-xl font-bold mb-4">Recent Accident Incident</h3>
             <table class="w-full border-collapse border border-gray-300">
-                
-                <!--table heading-->
                 <thead>
-                    <tr class="bg-gray-200">
-                        <th class="border border-gray-300 p-2">Location</th>
-                        <th class="border border-gray-300 p-2">Speed (km/h)</th>
-                        <th class="border border-gray-300 p-2">Date & Time</th>
+                    <tr class="bg-gray-100">
+                        <th class="p-4 text-left text-gray-600">Location</th>
+                        <th class="p-4 text-left text-gray-600">Speed (km/h)</th>
+                        <th class="p-4 text-left text-gray-600">Date & Time</th>
                     </tr>
                 </thead>
-
-                <!--sensor data to fetched from firebase and inserted into these <td> element-->
                 <tbody>
                     <tr>
                         <td id="location-data" class="border border-gray-300 p-2">Loading...</td>
@@ -81,8 +63,8 @@
                 </tbody>
             </table>
         </section>
-        
-        <!-- Accident History that keeps logs of  -->
+
+        <!-- Accident History -->
         <section class="bg-white p-6 rounded shadow-md mb-6">
             <h3 class="text-xl font-bold mb-4">Accident History</h3>
             <ul class="list-disc pl-6">
@@ -91,22 +73,32 @@
                 <li>2024-12-10 - Huye, Speed: 55km/h</li>
             </ul>
         </section>
-        
+
         <!-- Data Sharing Option -->
-        <section class="bg-white p-6 rounded shadow-md mb-6">
-            <h3 class="text-xl font-bold mb-4">Data Sharing</h3>
-            <p>Share your accident data with authorities or insurance companies.</p>
-            <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Share Data</button>
+        <section class="bg-white p-6 rounded-lg shadow-sm mb-8">
+            <h3 class="text-xl font-bold mb-6 text-gray-700">Data Sharing</h3>
+            <p class="text-gray-600 mb-4">Share your accident data with authorities or insurance companies.</p>
+            <button class="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition duration-300">Share Data</button>
         </section>
-        
-        <!-- Placeholder for Statistical Graphs (Optional) -->
+
+        <!-- Placeholder for Statistical Graphs -->
         <section class="bg-white p-6 rounded shadow-md">
             <h3 class="text-xl font-bold mb-4">Accident Statistics</h3>
             <p>Graphical representation of accident history <span class="font-bold text-xl">Coming Soon...</span></p>
         </section>
     </div>
-    
-    <!--links to fetch script-->
+
+    <!-- JavaScript to Toggle Mobile Menu -->
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+
+    <!-- Link to fetch Firebase script -->
     <script src="firebase-fetch.js"></script>
 </body>
 </html>

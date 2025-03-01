@@ -10,12 +10,12 @@
 style="background-image: url('/frontend/src/public/images/city\ bike2.jpg'); box-shadow: inset 0 0 0 2000px rgba(5, 5, 5, 0.5);" 
 class="flex flex-col items-center justify-center h-screen bg-cover bg-no-repeat gap-8">
 
-    <!--back home button-->
-    <div class="flex w-full px-40">
-        <a href="home.html" class="text-white hover:text-[#2563EB] text-2xl font-bold mb-4">Back</a>
-        <img src="">
-    </div>
-    <div class="flex flex-col items-center bg-white p-8 rounded shadow-md w-[500px]">
+        <!--back home button-->
+        <div class="flex w-full px-40">
+            <a href="home.html" class="text-white hover:text-[#2563EB] text-2xl font-bold mb-4">Home</a>
+            <img src="">
+        </div>
+        <div class="flex flex-col items-center bg-white p-8 rounded shadow-md w-[500px]">
 
         <!--logo-->
         <div class="pb-4">
@@ -25,119 +25,202 @@ class="flex flex-col items-center justify-center h-screen bg-cover bg-no-repeat 
         </div> 
 
         <!--login form/card-->
-        <div class="w-full max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Sign up</h2>
-            <form id="signup-form" action="#" method="POST" class="space-y-4">
-                <!-- Full Name Input (Full Width) -->
+        <div class="w-full max-w-md mx-auto p-8 bg-white rounded-lg shadow-lg">
+            <!-- Step Indicators -->
+            <div class="flex justify-center space-x-4 mb-8">
+                <div id="step-1-indicator" class="w-3 h-3 bg-blue-600 rounded-full"></div>
+                <div id="step-2-indicator" class="w-3 h-3 bg-gray-300 rounded-full"></div>
+                <div id="step-3-indicator" class="w-3 h-3 bg-gray-300 rounded-full"></div>
+            </div>
+        
+            <!-- Step 1: Personal Information -->
+            <form id="step-1" class="space-y-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Personal Information</h2>
+                
+                <!-- Full Name Input -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
                     <input 
                         type="text" 
-                        class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" 
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" 
                         placeholder="Full Name" 
                         required
                     >
                 </div>
         
-                <!-- Two-Column Layout for Phone Number and Email -->
-                <div class="grid grid-cols-2 gap-4">
-                    <!-- Phone Number Input -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                        <input 
-                            type="tel" 
-                            class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" 
-                            placeholder="Phone Number" 
-                            required
-                        >
-                    </div>
-        
-                    <!-- Email Input -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                        <input 
-                            type="email" 
-                            class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" 
-                            placeholder="Email" 
-                            required
-                        >
-                    </div>
+                <!-- Phone Number Input -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                    <input 
+                        type="tel" 
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" 
+                        placeholder="Phone Number" 
+                        required
+                    >
                 </div>
         
-                <!-- Two-Column Layout for Password and Confirm Password -->
-                <div class="grid grid-cols-2 gap-4">
-                    <!-- Password Input -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                        <input 
-                            type="password" 
-                            id="password" 
-                            class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" 
-                            placeholder="Password" 
-                            required
-                        >
-                    </div>
-        
-                    <!-- Confirm Password Input -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
-                        <input 
-                            type="password" 
-                            id="confirm-password" 
-                            class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" 
-                            placeholder="Confirm Password" 
-                            required
-                        >
-                    </div>
+                <!-- Email Input -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                    <input 
+                        type="email" 
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" 
+                        placeholder="Email" 
+                        required
+                    >
                 </div>
         
-                <!-- Error Message (Hidden by Default) -->
-                <div id="password-error" class="text-red-600 text-sm mt-2 hidden">
-                    Passwords do not match. Please try again.
-                </div>
-        
-                <!-- Sign Up Button -->
+                <!-- Next Button -->
                 <button 
-                    type="submit" 
-                    class="w-full bg-blue-600 text-white p-2 rounded-lg font-semibold hover:bg-blue-700 transition duration-300"
+                    type="button" 
+                    onclick="nextStep(2)" 
+                    class="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300"
                 >
-                    Sign Up
+                    Next
                 </button>
             </form>
         
-            <!-- Login Link -->
-            <p class="mt-4 text-center text-gray-600 text-sm">
-                Already have an account? 
-                <a href="login.html" class="text-blue-600 hover:text-blue-700 font-semibold transition duration-300">Login</a>
-            </p>
+            <!-- Step 2: Account Security -->
+            <form id="step-2" class="space-y-6 hidden">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Account Security</h2>
+                
+                <!-- Password Input -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" 
+                        placeholder="Password" 
+                        required
+                    >
+                </div>
+        
+                <!-- Confirm Password Input -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
+                    <input 
+                        type="password" 
+                        id="confirm-password" 
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" 
+                        placeholder="Confirm Password" 
+                        required
+                    >
+                </div>
+        
+                <!-- Error Message (Hidden by Default) -->
+                <div id="password-error" class="text-red-600 text-sm hidden">
+                    Passwords do not match. Please try again.
+                </div>
+        
+                <!-- Previous and Next Buttons -->
+                <div class="flex justify-between">
+                    <button 
+                        type="button" 
+                        onclick="prevStep(1)" 
+                        class="w-1/2 bg-gray-300 text-gray-700 p-3 rounded-lg font-semibold hover:bg-gray-400 transition duration-300 mr-2"
+                    >
+                        Previous
+                    </button>
+                    <button 
+                        type="button" 
+                        onclick="nextStep(3)" 
+                        class="w-1/2 bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300"
+                    >
+                        Next
+                    </button>
+                </div>
+            </form>
+        
+            <!-- Step 3: Driving License Upload -->
+            <form id="step-3" class="space-y-6 hidden">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Upload Driving License</h2>
+                
+                <!-- File Upload Input -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Driving License</label>
+                    <input 
+                        type="file" 
+                        id="driving-license" 
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" 
+                        accept=".pdf,.jpg,.jpeg,.png" 
+                        required
+                    >
+                </div>
+        
+                <!-- Previous and Submit Buttons -->
+                <div class="flex justify-between">
+                    <button 
+                        type="button" 
+                        onclick="prevStep(2)" 
+                        class="w-1/2 bg-gray-300 text-gray-700 p-3 rounded-lg font-semibold hover:bg-gray-400 transition duration-300 mr-2"
+                    >
+                        Previous
+                    </button>
+                    <button 
+                        type="submit" 
+                        class="w-1/2 bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300"
+                    >
+                        Submit
+                    </button>
+                </div>
+            </form>
         </div>
         
-        <!-- JavaScript for Password Validation -->
+        <!-- JavaScript for Multi-Step Form -->
         <script>
-            const form = document.getElementById('signup-form');
-            const passwordInput = document.getElementById('password');
-            const confirmPasswordInput = document.getElementById('confirm-password');
-            const passwordError = document.getElementById('password-error');
+            let currentStep = 1;
         
-            form.addEventListener('submit', (e) => {
-                // Check if passwords match
-                if (passwordInput.value !== confirmPasswordInput.value) {
-                    e.preventDefault(); // Prevent form submission
-                    passwordError.classList.remove('hidden'); // Show error message
-                    confirmPasswordInput.focus(); // Focus on the confirm password field
-                } else {
-                    passwordError.classList.add('hidden'); // Hide error message if passwords match
-                }
-            });
+            // Function to go to the next step
+            function nextStep(step) {
+                if (step === 2) {
+                    // Validate Step 1 fields (if needed)
+                    document.getElementById('step-1').classList.add('hidden');
+                    document.getElementById('step-2').classList.remove('hidden');
+                    document.getElementById('step-1-indicator').classList.remove('bg-blue-600');
+                    document.getElementById('step-1-indicator').classList.add('bg-gray-300');
+                    document.getElementById('step-2-indicator').classList.remove('bg-gray-300');
+                    document.getElementById('step-2-indicator').classList.add('bg-blue-600');
+                } else if (step === 3) {
+                    // Validate Step 2 fields (e.g., password match)
+                    const password = document.getElementById('password').value;
+                    const confirmPassword = document.getElementById('confirm-password').value;
+                    const passwordError = document.getElementById('password-error');
         
-            // Optional: Validate passwords in real-time as the user types
-            confirmPasswordInput.addEventListener('input', () => {
-                if (passwordInput.value !== confirmPasswordInput.value) {
-                    passwordError.classList.remove('hidden');
-                } else {
-                    passwordError.classList.add('hidden');
+                    if (password !== confirmPassword) {
+                        passwordError.classList.remove('hidden');
+                        return; // Stop if passwords don't match
+                    } else {
+                        passwordError.classList.add('hidden');
+                    }
+        
+                    document.getElementById('step-2').classList.add('hidden');
+                    document.getElementById('step-3').classList.remove('hidden');
+                    document.getElementById('step-2-indicator').classList.remove('bg-blue-600');
+                    document.getElementById('step-2-indicator').classList.add('bg-gray-300');
+                    document.getElementById('step-3-indicator').classList.remove('bg-gray-300');
+                    document.getElementById('step-3-indicator').classList.add('bg-blue-600');
                 }
-            });
+            }
+        
+            // Function to go to the previous step
+            function prevStep(step) {
+                if (step === 1) {
+                    document.getElementById('step-2').classList.add('hidden');
+                    document.getElementById('step-1').classList.remove('hidden');
+                    document.getElementById('step-2-indicator').classList.remove('bg-blue-600');
+                    document.getElementById('step-2-indicator').classList.add('bg-gray-300');
+                    document.getElementById('step-1-indicator').classList.remove('bg-gray-300');
+                    document.getElementById('step-1-indicator').classList.add('bg-blue-600');
+                } else if (step === 2) {
+                    document.getElementById('step-3').classList.add('hidden');
+                    document.getElementById('step-2').classList.remove('hidden');
+                    document.getElementById('step-3-indicator').classList.remove('bg-blue-600');
+                    document.getElementById('step-3-indicator').classList.add('bg-gray-300');
+                    document.getElementById('step-2-indicator').classList.remove('bg-gray-300');
+                    document.getElementById('step-2-indicator').classList.add('bg-blue-600');
+                }
+            }
         </script>
     </div>
 </body>
